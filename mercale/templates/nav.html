@@ -1,0 +1,22 @@
+{%block foot %}
+    <header>
+        <nav class="navbar fixed-top navbar-expand-md bg-dark navbar-dark navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav"> 
+                <span> <a href="/{{category.id}}">{{category.nameVision}}</a></span>
+                {% for category in categorys%}
+                    <a class="nav-item nav-link" href="{{category.linkVision}}" target="myframe"><span>{{category.nameVision}}</span></a>
+                {% endfor %}
+                <li class="nav-item ">
+                    <a class="nav-link" href="/accounts/logout">
+                      Deslogar
+                    </a>
+                </li>
+            </div>
+            </div>
+        </nav>
+    </header>
+{% endblock %}

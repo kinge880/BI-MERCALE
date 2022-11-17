@@ -1,0 +1,9 @@
+{% autoescape off %}
+Olá,
+
+Recebemos uma nova solicitação de relatório do usuário {{user.first_name}}, acesse http://mercalepowerbi.sa-east-1.elasticbeanstalk.com/admin/visions/vision_request/ e defina se vai aceitar ou Negar esse relatório!
+
+Sinceramente,
+Equipe de TI
+
+{% endautoescape %}

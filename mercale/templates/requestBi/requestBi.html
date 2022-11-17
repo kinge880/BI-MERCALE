@@ -1,0 +1,121 @@
+{% extends 'baseVisions.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Solicitações de relatórios{% endblock %}
+{% block content %}
+<!-- formulário de solicitação -->   
+{%if state == 1 %} <div class="col-md-6 mx-auto card_request" id="requestpowerbi" style="display: none;" > 
+{% else %} <div class="col-md-6 mx-auto card_request" id="requestpowerbi"> {% endif %} 
+    <div class="form-group">
+      <form method = "POST">
+        {% csrf_token %}
+        <h2 class="text-center "> Formulário de solicitação</h2>  
+        <select id="selectRelatory" name="relatory" required class="form-control form-control-sm" onchange="clickOption()" oninvalid="this.setCustomValidity('Selecione um relatório na lista')"
+        oninput="this.setCustomValidity('')">
+            <option value="">Selecione</option>
+                {% for visions in form_request %}
+                    <option id= "mercalebi{{visions.id}}" name="{{visions.description}}" value="{{visions.id}}">{{ visions.nameVision }}</option>
+                {% endfor %}
+          </select>
+        <textarea class="form-control input-group mb-3 text_descripton" id="descripton" disabled="disabled" value=""></textarea >
+        <textarea name="reason" id="reason" class="form-control input-group mb-3 text_insert" id = "reason" required placeholder="Digite aqui o motivo da solicitação de acesso ao relatório"></textarea>
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+        <button class="btn login_btn" type="submmit">Solicitar</button 
+      </form>
+    </div>
+</div>
+
+<!-- Tabela de solicitações -->
+{%if state == 0 %} <div class="col-md-10 mx-auto card_request applyoverflow" id="requestBiTable" style="display: none;"> 
+{% else %}  <div class="col-md-10 mx-auto card_request applyoverflow" id="requestBiTable" > {% endif %}  
+  <div class="form-group">
+    {%if list_request%}
+    <table class="table table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Relatório solicitado</th>
+          <th scope="col">Status</th>
+          <th scope="col">Data da solicitação</th>
+          <th scope="col">Resposta da administração em</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%for item in list_request%}
+        {%if item.status == "Aceito"%}<tr class="table-success">{%endif%}
+        {%if item.status == "Negado"%}<tr class="table-danger">{%endif%}
+        {%if item.status == "Pendente"%}<tr class="table-warning">{%endif%}
+          <th scope="row">{{ forloop.counter0|add:list_request.start_index }} </th>
+          <td>{{item.visionId}}</td>
+          <td>{{item.status}}</td>
+          <td>{{item.created_at}}</td>
+          {%if item.status == "Pendente" %} 
+            <td>Ainda sem resposta da administração</td>
+            {% else %} 
+            <td>{{item.updated_at}}</td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {%else%}
+      <table class="table table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr >
+            <th scope="row">Você não solicitou nenhum relatório!</th>
+          </tr>
+        </tbody>
+      </table>
+    {%endif%}
+    <nav class="pagination" aria-label="Page navigation example">
+      <ul class="pagination">
+        {% if list_request.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page={{ list_request.previous_page_number }}">Anterior</a></li>
+        {% else %}
+          <li class="page-item disabled"><a class="page-link">Anterior</a></li>
+        {% endif %}
+        {% for i in list_request.paginator.page_range %}
+          {% if list_request.number == i %}
+            <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only ">(current)</span></span></li>
+          {% elif i > list_request.number|add:'-5' and i < list_request.number|add:'5' %}
+            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li> 
+          {% endif %}
+        {% endfor %}
+        {% if list_request.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ list_request.next_page_number }}">Próximo</a></li>
+        {% else %}
+          <li class="page-item disabled"><a class="page-link">Próximo</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+
+<script>
+    function clickOption(){
+      var selectId = document.getElementById("selectRelatory").value;
+      document.getElementById("descripton").value = 'Descrição: '+document.getElementById("mercalebi"+selectId).getAttribute('name');
+      
+    }
+
+    window.setTimeout(function() {
+      $(".alert").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove(); 
+      });
+  }, 2000);
+</script>
+{% endblock %}

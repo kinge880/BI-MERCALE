@@ -1,0 +1,61 @@
+{% load static %}
+{%block navLeft %}
+    <!-- Sidebar -->
+    <nav id="sidebar" class="font_panel" >
+        <div class="d-flex flex-column flex-shrink-0 h-100">
+            <div class="d-flex justify-content-center">
+                <div class="sidebar-header d-flex justify-content-center" >
+                    <h3 >Mercale PowerBi</h3>
+                </div>
+            </div>
+            <ul class="list-unstyled components li2 flex-column mb-auto">
+                {% if is_request and user.is_staff%}
+                <li class="li2">
+                    <a style="color: #ffff00;" id="nav_request_pendent" onclick="cliquehome()" href="admin/visions/vision_request/?status=Pendente"><i class="fa-solid fa-exclamation-triangle" ></i> Existem solicitações pendentes! Clique aqui!</a>
+                </li>
+                {%endif%}
+                <li class="li2">
+                    <a class="" id="nav_home" onclick="cliquehome()" href="#home"><i class="fa-solid fa-home" ></i> Página inicial</a>
+                </li>
+                <li class="li2">
+                    <a class="" id="nav_request" href="requestbi"><i class="fa-solid fa-file" ></i> Solicitar relatório</a>
+                </li>
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-list" aria-hidden="true"></i> PowerBi</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        {% for category in categorys%}
+                        {% if category.userId.id == user.id and category.visionId.is_active == 1 %}
+                            <li>
+                                <a class="nav-item nav-link" name="{{category.visionId.id}}" onclick="clique(this.name)" href="#{{category.visionId.nameVision}}"><span>{{category.visionId.nameVision}}</span></a>
+                                <a id="{{category.visionId.id}}"  class="block_a"  href="{{category.visionId.linkVision}}" target="myframe"><span>{{category.visionId.nameVision}}</span></a>
+                                <a id="{{category.visionId.id}}mobile"  class="block_a"  href="{{category.visionId.linkVisionMobile}}" target="myframe"><span>{{category.visionId.nameVision}}</span></a>
+                            </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% if user.is_staff%}
+                    <li class="li2">
+                        <a class="" href="/admin"><i class="fa-solid fa-table-list"></i> Administrativo</a>
+                    </li>
+                {% endif %}
+                <li class="li2">
+                    <a class="" href="/accounts/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Desconectar</a>
+                </li>
+            </ul>
+            <div class="text-center dropdown li2"> 
+                <hr class="li2">   
+                </i> © Beta versão 0.6_100622 Desenvolvido por Bruno Maia da Costa</i>
+            </div>
+        </div>
+    </nav>
+    <nav id="sidebarColapssed" class="btn-open">
+        <button type="button" id="sidebarReturn" class="btn sidebar_btn btn-sm nav-link sidebar-button-close" aria-label="Left Align">
+            <span id= "arowButton" class="fa-solid" style="color:white" aria-hidden = "true"></span>
+        </button>
+    </nav>
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="{% static 'js\sideBar.js' %}"></script>
+{% endblock %}
+

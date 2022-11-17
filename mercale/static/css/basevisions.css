@@ -1,0 +1,91 @@
+
+
+.iframe_hw{
+    transition: all 0.3s;
+}
+
+.background_vision{
+    background-color: #fafafa;
+
+}
+
+.email-link{
+    color: #007bff;
+}
+
+.font-title{
+    font-size: 8vw
+}
+
+.font-text{
+    font-size: 1.6vw
+}
+
+.applyoverflow{
+    overflow: auto;
+}
+
+#notmobilebi{
+    display: none;
+}
+/*dispositivos pequenos como celulares*/
+@media (max-width: 600px) { 
+    .font-text{
+        font-size: 4vw
+    }
+    .font-title{
+        font-size: 8vw
+    }
+ }
+
+/*dispositivos médios como tablets*/
+@media (min-width: 600px) {
+    #notmobilebi{
+        display: none !important;
+    }
+    .font-text{
+        font-size: 3.5vw
+    } 
+    .font-title{
+        font-size: 8vw
+    }
+ }
+
+/*dispositivos largos como nots*/
+@media (min-width: 768px) {
+    #notmobilebi{
+        display: none !important;
+    }
+    .font-text{
+        font-size: 3vw
+    } 
+    .font-title{
+        font-size: 7vw
+    }
+ }
+
+/*pc de mesa*/
+@media (min-width: 992px) { 
+    #notmobilebi{
+        display: none !important;
+    }
+    .font-text{
+        font-size: 2vw
+    } 
+    .font-title{
+        font-size: 7vw
+    }
+}
+
+/*tv*/
+@media (min-width: 1200px) { 
+    #notmobilebi{
+        display: none !important;
+    }
+    .font-text{
+        font-size: 1.6vw
+    } 
+    .font-title{
+        font-size: 5vw
+    }
+}

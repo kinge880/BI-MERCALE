@@ -1,0 +1,14 @@
+{% extends 'error/baseErros.html' %}
+{% load static %}
+{% block title %}Acesso Não permitido!{% endblock %}
+{% block error %}
+
+
+<link rel="stylesheet" href="{% static 'css/error/403.css' %}">
+<div class="status text text_spawn">ERRO 403 - VOCÊ NÃO VAI PASSAR!</div>
+<div class="message text">Poxa... Gandalf está bloqueando o caminho!<br/>Acho que você não tem permissão para acessar essa área, que peninha, vamos <a href="/">voltar</a></div>
+<div class="container text_spawn">
+  <img class="servers " src="https://www.pngmart.com/files/3/Gandalf-Transparent-PNG.png"/>
+  
+</div>
+{% endblock %}

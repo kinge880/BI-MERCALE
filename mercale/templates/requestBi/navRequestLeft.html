@@ -1,0 +1,60 @@
+{% load static %}
+{%block navRequestLeft %}
+    <!-- Sidebar -->
+    <nav id="sidebar" class="font_panel h-100"  >
+        <div class="d-flex flex-column flex-shrink-0 h-100">
+            <div class="d-flex justify-content-center">
+                <div class="sidebar-header d-flex justify-content-center" >
+                    <h3 >Mercale PowerBi</h3>
+                </div>
+            </div>
+            <ul class="list-unstyled components li2 flex-column mb-auto">
+                <li class="li2">
+                    <a class="" id="nav_home" href="/"><i class="fa-solid fa-eye" ></i> Visualizar relatórios</a>
+                </li>
+                <li class="li2">
+                    <a class="" id="nav_request" onclick="clique()" href="#requestbi"><i class="fa-solid fa-person-chalkboard"></i> Formulário de solicitação</a>
+                </li>
+                <li class="li2">
+                    <a class="" id="nav_request" onclick="cliquerequest()" href="#requestbi"><i class="fa-solid fa-person-digging" ></i> Solicitações realizadas</a>
+                </li>
+                {% if user.is_staff%}
+                    <li class="li2">
+                        <a class="" href="/admin"><i class="fa-solid fa-table-list"></i> Administrativo</a>
+                    </li>
+                {% endif %}
+                <li class="li2">
+                    <a class="" href="/accounts/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Desconectar</a>
+                </li>
+            </ul>
+            <br class="li2">
+            <div class="text-center dropdown li2"> 
+                <hr class="li2">   
+                </i> © Beta versão 0.5_290522 Desenvolvido por Bruno Maia da Costa</i>
+            </div>
+        </div>
+    </nav>
+    <nav id="sidebarColapssed" class="btn-open">
+        <button type="button" id="sidebarReturn" class="btn sidebar_btn btn-sm nav-link sidebar-button-close" aria-label="Left Align">
+            <span id= "arowButton" class="fa-solid" style="color:white" aria-hidden = "true"></span>
+        </button>
+    </nav>
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="{% static 'js\sideBar.js' %}"></script>
+    <script> 
+        function clique(id){
+            var button = document.getElementById(id);
+            document.getElementById("requestpowerbi").style.display = "Block";
+            document.getElementById("requestBiTable").style.display = "none";
+            button.click();
+        }
+      </script>
+      <script>
+        function cliquerequest(){
+            document.getElementById("requestpowerbi").style.display = "none";
+            document.getElementById("requestBiTable").style.display = "block";
+        }
+      </script>
+{% endblock %}
+

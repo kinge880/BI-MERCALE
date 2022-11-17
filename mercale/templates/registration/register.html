@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Cadastro Powerbi Mercale{% endblock %}
+{% block content %}
+    <div class="container_fluid h-100">
+        <div class="d-flex justify-content-center h-100">
+            <div class="card_c card_register_size">
+                <div class="d-flex justify-content-center">
+                    <div class="brand_logo_container">
+                        <img src="{% static 'img/logo/mercale.png' %}"
+                             class="brand_logo"
+                             alt="Logo">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center form_container">
+                    <form method = "POST" class="needs-validation ">
+                        {% csrf_token %}
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                            </div>
+                            <input required
+                                   type="email"
+                                   name="email"
+                                   id="email"
+                                   class="form-control input_user"
+                                   placeholder="Digite seu email"
+                                   title="Insira um email válido aqui!">
+                        </div>
+                        {% if email_error %}   
+                            <div class="d-flex justify-content-center alert alert-danger fade show" role="alert">
+                                {{email_error}}
+                            </div>
+                        {% endif %}
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input required
+                                   type="text"
+                                   name="first_name"
+                                   id="first_name"
+                                   class="form-control input_user"
+                                   placeholder="Digite seu primeiro nome"
+                                   title="Insira seu primeiro nome">
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input required
+                                   type="text"
+                                   name="last_name"
+                                   id="last_name"
+                                   class="form-control input_user"
+                                   placeholder="Digite seu sobrenome"
+                                   title="Insira seu sobrenome">
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input required
+                                   type="text"
+                                   name="username"
+                                   id="username"
+                                   class="form-control input_user"
+                                   placeholder="Digite seu login"
+                                   title="Insira o nome que irá usar para logar no sistema">
+                        </div>
+                        {% if user_error %}   
+                            <div class="d-flex justify-content-center alert alert-danger fade show" role="alert">
+                                {{user_error}}
+                            </div>
+                        {% endif %}
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            </div>
+                            <input required
+                                   type="password"
+                                   name="password"
+                                   id="password"
+                                   class="form-control input_pass"
+                                   placeholder="Digite uma senha"
+                                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                   oninvalid="this.setCustomValidity('A senha deve conter pelo menos um número, uma letra maiuscula e minuscula e pelo menos 8 ou mais caracteres')"
+                                   oninput="this.setCustomValidity('')"
+                                   title
+                                   Digite
+                                   sua
+                                   senha>
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            </div>
+                            <input required
+                                   type="password"
+                                   name="passwordConfirm"
+                                   id="passwordConfirm"
+                                   class="form-control input_pass"
+                                   placeholder="Repita sua senha"
+                                   title
+                                   Repita
+                                   sua
+                                   senha>
+                        </div>
+                        <div class="d-flex justify-content-center mt-3 login_container">
+                            <button type="subimit" id="formSubmit" class="btn login_btn">Criar conta</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="mt-4">
+                    <div class="d-flex justify-content-center links">
+                        Já tem uma conta? <a href="/accounts/login" class="ml-2">Faça login!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+var password = document.getElementById("password"),
+    formSubmit = document.getElementById("formSubmit"),
+    confirm_password = document.getElementById("passwordConfirm");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Senhas diferentes!");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+formSubmit.addEventListener("click", validatePassword);
+confirm_password.onkeyup = confirm_password.setCustomValidity('');
+</script>
+{% endblock %}

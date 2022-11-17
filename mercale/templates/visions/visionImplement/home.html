@@ -1,0 +1,86 @@
+{% extends 'baseVisions.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Mercale PowerBI{% endblock %}
+{% block content %}
+<!-- Power BI iframe -->    
+<div id="home"class="container-fluid position-relative text-center bg-light applyoverflow" style="display: block;">
+    <div class="col-md-10 mx-auto my-5">
+      <h1 id='welcomeTitle' class="display-4 font-weight-normal font-title">Titúlo</h1>
+      <br>
+      <p class="lead font-weight-normal h-auto font-text">O Mercale PowerBI foi desenvolvido com o objetivo de prover uma plataforma unificada, segura e escalonável para fácil 
+          visualização dos relatórios de BI corporativos do mercale, sendo muito fácil de usar e ajudando você a obter insights mais aprofundados sobre o nosso négocio!<br><br>
+        Para começar a utilizar basta clicar na aba solicitar relatório e pedir acesso a qualquer relatório de powerBI já produzido na empresa e após o seu acesso ser autorizado, basta 
+        acessá-los através do menu PowerBI.<br><br>
+    Como um projeto em desenvolvimento sua opinião é muito importante pra gente! Por favor nos informe todas as suas sugestões de melhorias e bugs que precisam ser solucionados no email
+<a class="email-link" href="mailto:mercalepowerbi@gmail.com?subject=Feedback%20{{user.first_name}}%20{{user.last_name}}&body=Encontrou algum bug? Achou algum ponto do sistema feio ou mal posicionado?
+Acha que mudar tal elemento pode tornar o sistema melhor? Descreva isso aqui em baixo! ^^">mercalepowerbi@gmail.com!</a></p>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+      NOVIDADES DA ATUALIZAÇÃO 0.6
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Atualização 0.6 temporada da responsividade!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body text-left">
+            <strong>Melhorias gerais na responsividade da aplicação</strong><br>
+              - Sidebar modificada para sumir completamente ao ser fechada, liberando mais espaço principalmente em celulares
+              - As notificações de solicitação dos novos relatórios foram melhoradas
+              - Responsividade ampliada para celulares e tablets
+              - Adicionado novas opções de relatórios que funcionam exclusivamente em celulares
+              <br><br><strong>Bugs corrigidos:</strong><br>
+              - corrigido bug onde o email de recuperação de senha poderia não ser enviado em situações específicas
+              <br><Strong>Sempre que possível tentem quebrar ao máximo o sistema e fazer de tudo para ele não funcionar, daí se encontrar novos bugs ou conseguirem quebrar algumas coisa, por favor informar no email destacado na página inicial para que eu possa corrigir \o/</strong>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+<div id="bimercale" class="iframe_hw embed-responsive embed-responsive-16by9 applyoverflow" style="display: none;">
+    <iframe name="myframe" class="embed-responsive-item" 
+        src="" 
+        frameborder="0" allowFullScreen>
+    </iframe>
+</div>
+
+<div id="notmobilebi"class="container-fluid position-relative text-center bg-light applyoverflow">
+  <div class="col-md-10 mx-auto my-5">
+    <div class="text-center">
+      <h1 class="display-4 font-weight-normal font-title">Esse relatório ainda não tem uma versão mobile!</h1><br>
+    </div>
+    <img src="{% static 'img/404mr1.png' %}" class="img-fluid rounded mx-auto d-block" alt="Imagem responsiva"/><br>
+    <div class="text-justify">
+      <p class="lead font-weight-normal h-auto font-text">Para ser capaz de usar esse relatório, por favor tente acessar em uma tela maior ou de um computador.<br> Caso seja muito importante utilizar esse relatório no celular, por favor solicite a criação de uma versão mobile nesse email!
+      <a class="email-link" href="mailto:mercalepowerbi@gmail.com?subject={{user.first_name}}%20{{user.last_name}}%20 precisa de uma versão mobile de um dos nossos relatórios!&body=Qual relatório você precisa?">mercalepowerbi@gmail.com!</a> </p>
+    </div>
+  </div>
+</div>
+
+<script>
+    const greetingMessage = () => {
+        let h = new Date().getHours();
+        switch (true) {
+          case h <= 5: return 'Boa madrugada {{user.first_name}} {{user.last_name}} :)';
+          case h < 12: return 'Bom dia {{user.first_name}} {{user.last_name}}! :)';
+          case h < 18: return 'Boa tarde {{user.first_name}} {{user.last_name}}! :)';
+          default: return 'Boa noite {{user.first_name}} {{user.last_name}}! :)';
+        }   
+      }
+    
+      document.getElementById("welcomeTitle").innerHTML = greetingMessage();   
+</script>
+{% endblock %}
+
